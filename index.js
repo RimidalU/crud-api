@@ -1,18 +1,19 @@
 import { createServer } from 'http';
 import { users } from './src/users.js';
+import 'dotenv/config'
 
-const HOST = 'localhost';
-const PORT = 3000;
-const API = '/api/user';
+const host = process.env.HOST;
+const port = process.env.PORT;
+const api = process.env.API;
 
 let bd = JSON.stringify(users);
 let textResp;
 
 const server = createServer((req, res) => {
-  console.log(`Server is running on ${HOST}:${PORT}`);
+  console.log(`Server is running on ${host}:${port}`);
 
   switch (req.url) {
-    case API:
+    case api:
       textResp = bd;
       res.statusCode = 200
       break;
@@ -27,6 +28,6 @@ const server = createServer((req, res) => {
   res.end()
 });
 
-server.listen(PORT, HOST, (err) => {
-  err ? console.log(err) : console.log(`Listening port ${PORT}`);
+server.listen(port, host, (err) => {
+  err ? console.log(err) : console.log(`Listening port ${port}`);
 })
