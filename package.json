@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/RimidalU/crud-api/issues"
   },
-  "homepage": "https://github.com/RimidalU/crud-api#readme"
+  "homepage": "https://github.com/RimidalU/crud-api#readme",
+  "dependencies": {
+    "nodemon": "^2.0.16"
+  }
 }
