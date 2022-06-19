@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { createServer } from 'http';
-import { getAllUsers, getOneUser, createUser } from './src/controllers/userController.js';
+import { getAllUsers, getOneUser, createUser, updateUser } from './src/controllers/userController.js';
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT;
@@ -17,22 +17,26 @@ const apiMetod = {
 const server = createServer((req, res) => {
   console.log(`Server is running on ${HOST}:${PORT}`);
 
-  if (req.url === ENDPOINT && req.method === apiMetod.GET) {    
+  if (req.url === ENDPOINT && req.method === apiMetod.GET) {
     getAllUsers(req, res)
 
   } else if (req.url.match(REGEX) && req.method === apiMetod.GET) {
     const id = req.url.split('/')[3];
     getOneUser(req, res, id);
 
-  }else if (req.url === ENDPOINT && req.method === apiMetod.POST){
-  createUser(req, res)
+  } else if (req.url === ENDPOINT && req.method === apiMetod.POST) {
+    createUser(req, res)
 
-}else {
-  res.setHeader('ContentType', 'application/json');
-  res.statusCode = 404
+  } else if (req.url.match(REGEX) && req.method === apiMetod.PUT) {
+    const id = req.url.split('/')[3];
+    updateUser(req, res, id)
+
+  } else {
+    res.setHeader('ContentType', 'application/json');
+    res.statusCode = 404
     res.write(JSON.stringify({ message: `Page '${req.url}' not Found` }))
     res.end()
-}
+  }
 
 });
 

@@ -22,9 +22,17 @@ const create = async (user) => {
   })
 }
 
+const update = async (id, newUser) => {
+  return new Promise((resolve, reject) => {
+    const index = usersBD.findIndex((user) => user.id === id)
+    usersBD[index] = {id, ...newUser}    
+    resolve(usersBD[index])
+  })
+}
 
 export {
   findAll,
   findById,
-  create
+  create,
+  update
 }
