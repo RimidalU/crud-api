@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import { createServer } from 'http';
-import { getAllUsers, getOneUser, createUser, updateUser } from './src/controllers/userController.js';
+import { getAllUsers, getOneUser, createUser, updateUser, removeUser } from './src/controllers/userController.js';
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT;
@@ -31,10 +31,14 @@ const server = createServer((req, res) => {
     const id = req.url.split('/')[3];
     updateUser(req, res, id)
 
+  } else if (req.url.match(REGEX) && req.method === apiMetod.DELETE) {
+    const id = req.url.split('/')[3];
+    removeUser(req, res, id)
+
   } else {
     res.setHeader('ContentType', 'application/json');
     res.statusCode = 404
-    res.write(JSON.stringify({ message: `Page '${req.url}' not Found` }))
+    res.write(JSON.stringify({ message: `Error: path '${req.url}' not Found` }))
     res.end()
   }
 
@@ -43,4 +47,3 @@ const server = createServer((req, res) => {
 server.listen(PORT, HOST, (err) => {
   err ? console.log(err) : console.log(`Listening port ${PORT}`);
 })
-

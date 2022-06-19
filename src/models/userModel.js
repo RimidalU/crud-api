@@ -1,5 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
-import { usersBD } from '../data/usersBD.js';
+import { usersArr } from '../data/usersBD.js';
+
+let usersBD = usersArr;
 
 const findAll = async () => {
   return new Promise((resolve, reject) => {
@@ -30,9 +32,17 @@ const update = async (id, newUser) => {
   })
 }
 
+const remove = async (id) => {
+  return new Promise((resolve, reject) => {
+    usersBD = usersBD.filter((user) => user.id !== id)
+    resolve(id)
+  })
+}
+
 export {
   findAll,
   findById,
   create,
-  update
+  update,
+  remove
 }

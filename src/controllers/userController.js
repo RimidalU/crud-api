@@ -1,4 +1,4 @@
-import { findAll, findById, create, update } from '../models/userModel.js'
+import { findAll, findById, create, update, remove } from '../models/userModel.js'
 
 const getAllUsers = async (req, res) => {
   try {
@@ -91,9 +91,30 @@ console.log(user);
   }
 }
 
+const removeUser = async (req, res, id) => {
+  try {
+    const user = await findById(id)
+    if (!user) {
+      res.setHeader('ContentType', 'application/json');
+      res.statusCode = 404;
+      res.write(JSON.stringify({ message: `User ${id} not Found` }));
+      res.end()
+    } else {
+      await remove(id)
+      res.setHeader('ContentType', 'application/json');
+      res.statusCode = 200;
+      res.write(JSON.stringify({message: `User ${id} removed`}));
+      res.end()
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export {
   getAllUsers,
   getOneUser,
   createUser,
-  updateUser
+  updateUser,
+  removeUser
 }
