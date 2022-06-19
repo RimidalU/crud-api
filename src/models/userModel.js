@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { usersBD } from '../data/usersBD.js';
 
 const findAll = async () => {
@@ -13,7 +14,17 @@ const findById = async (id) => {
   })
 }
 
+const create = async (user) => {
+  return new Promise((resolve, reject) => {
+    const newUser = {id: uuidv4(), ...user}
+    usersBD.push(newUser)
+    resolve(newUser)
+  })
+}
+
+
 export {
   findAll,
-  findById
+  findById,
+  create
 }
