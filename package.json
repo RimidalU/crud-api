@@ -1,0 +1,29 @@
+{
+  "name": "crud-api",
+  "version": "1.0.0",
+  "description": "simple CRUD API using in-memory database underneath.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon index.js",
+    "start:prod": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RimidalU/crud-api.git"
+  },
+  "author": "RimidalU",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RimidalU/crud-api/issues"
+  },
+  "homepage": "https://github.com/RimidalU/crud-api#readme",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
