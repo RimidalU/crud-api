@@ -1,31 +1,33 @@
-import { createServer } from 'http';
-import { users } from './src/users.js';
 import 'dotenv/config'
+import { createServer } from 'http';
+import { getAllUsers } from './src/controllers/userController.js';
 
 const host = process.env.HOST;
 const port = process.env.PORT;
 const api = process.env.API;
 
-let bd = JSON.stringify(users);
-let textResp;
+let resBody;
 
 const server = createServer((req, res) => {
   console.log(`Server is running on ${host}:${port}`);
 
-  switch (req.url) {
-    case api:
-      textResp = bd;
-      res.statusCode = 200
-      break;
-    default:
-      textResp = `Page '${req.url}' not Found`
-      res.statusCode = 404
-      break;
+  if (req.url === api) {
+    getAllUsers(req, res)
+  } else {
+    res.setHeader('ContentType', 'application/json');
+    res.statusCode = 404
+    res.write(JSON.stringify(`Page '${req.url}' not Found`))
+    res.end()
   }
 
-  res.setHeader('ContentType', 'application/json');
-  res.write(textResp)
-  res.end()
+  // switch (req.url) {
+  //   case api:
+
+  //     break;
+  //   default:
+
+  //     break;
+  // }
 });
 
 server.listen(port, host, (err) => {

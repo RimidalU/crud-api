@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export let users = [
+export let usersBD = [
   {
     id: 'fbca86c7-d080-4466-8fce-657f9576060b',
     username: 'Ivan',
